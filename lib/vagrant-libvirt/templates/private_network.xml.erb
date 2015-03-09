@@ -2,7 +2,7 @@
   <name><%= @network_name %></name>
   <bridge name="<%= @network_bridge_name %>" />
 
-  <% if (@network_forward_mode != 'none' && @network_forward_mode != 'isolated' %>
+  <% if (@network_forward_mode != 'none' && @network_forward_mode != 'isolated') %>
     <% if @network_forward_device %>
       <forward mode="<%= @network_forward_mode %>" dev="<%= @network_forward_device %>" />
     <% else %>
@@ -18,6 +18,8 @@
       <range start="<%= @network_range_start %>" end="<%= @network_range_stop %>" />
     </dhcp>
   <% end %>
-  </ip>
+  <% if @network_forward_mode != 'isolated' %>
+    </ip>
+  <% end %>
 
 </network>
