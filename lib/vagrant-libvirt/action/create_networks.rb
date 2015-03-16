@@ -132,6 +132,14 @@ module VagrantPlugins
               break
             end
           end
+          # if network is isolated, search by name instead
+          if @options[:libvirt__forward_mode] == "isolated"
+            if lookup_network_by_name(@options[:network_name])
+              @interface_network = lookup_network_by_name(@options[:network_name])
+              @logger.debug "mperedim100"
+              @logger.debug @interface_network
+            end
+          end
 
           if @interface_network[:created]
             verify_dhcp
